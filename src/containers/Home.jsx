@@ -1,51 +1,58 @@
-import React, {useState, useEffect} from "react";
-import Header from "../components/Header";
+import React from "react";
+import { connect } from "react-redux";
 import Search from "../components/Search";
 import Categories from "../components/Categories";
 import Carroussel from "../components/Carroussel";
 import Item from "../components/Item";
-import Footer from "../components/Footer";
-import useInitialState from "../hooks/useInitialState";
-import '../assets/styles/App.scss'
+import '../assets/styles/containers/Home.scss'
 
-const API = 'http://localhost:3000/initalState'
-
-const App = () => {
-    const initialState = useInitialState(API)
+const Home = ({myList, trends, originals}) => {
     return (
-        <div className="App">
-            <Header />
+        <>
             <Search />
-            {(initialState.mylist) &&
+            {(myList.length) &&
                 <Categories title={"Favoritos"}>
                     <Carroussel>
-                        <Item/>
+                        {myList.map(item =>
+                            <Item
+                                key={item.id}
+                                {...item}
+                                isList
+                            />
+                        )}
                     </Carroussel>
                 </Categories>
             }
 
-            {(initialState.trends) &&
+            {(trends) &&
             <Categories title={"Sugerencias"}>
                 <Carroussel>
-                    {initialState.trends.map(item =>
+                    {trends.map(item =>
                         <Item key={item.id} {...item} />
                     )}
                 </Carroussel>
             </Categories>
             }
 
-            {(initialState.originals) &&
+            {(originals) &&
             <Categories title={"Populares"}>
                 <Carroussel>
-                    {initialState.originals.map(item =>
+                    {originals.map(item =>
                         <Item key={item.id} {...item} />
                     )}
                 </Carroussel>
             </Categories>
             }
-            <Footer />
-        </div>
+        </>
     )
 }
 
-export default App
+const mapStateToProps = (state) => {
+    return {
+        myList: state.myList,
+        trends: state.trends,
+        originals: state.originals,
+    }
+}
+
+export default connect(mapStateToProps, null)(Home)

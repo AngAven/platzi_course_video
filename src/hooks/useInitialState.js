@@ -1,7 +1,7 @@
 import {useEffect, useState} from "react";
 
 const useInitialState = (API) => {
-    const [videos, setVideos] = useState({ mylist: [], trends: [], originals: [] })
+    const [videos, setVideos] = useState({ myList: [], trends: [], originals: [] })
     useEffect(() => {
         fetch(API)
             .then( response => response.json())
