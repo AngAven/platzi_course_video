@@ -9,8 +9,9 @@ import '../assets/styles/containers/Home.scss'
 const Home = ({myList, trends, originals}) => {
     return (
         <>
-            <Search />
-            {(myList.length) &&
+            <Search/>
+            {
+                (myList.length) &&
                 <Categories title={"Favoritos"}>
                     <Carroussel>
                         {myList.map(item =>
@@ -23,25 +24,25 @@ const Home = ({myList, trends, originals}) => {
                     </Carroussel>
                 </Categories>
             }
-
-            {(trends) &&
-            <Categories title={"Sugerencias"}>
-                <Carroussel>
-                    {trends.map(item =>
-                        <Item key={item.id} {...item} />
-                    )}
-                </Carroussel>
-            </Categories>
+            {
+                (trends) &&
+                <Categories title={"Sugerencias"}>
+                    <Carroussel>
+                        {trends.map(item =>
+                            <Item key={item.id} {...item} />
+                        )}
+                    </Carroussel>
+                </Categories>
             }
-
-            {(originals) &&
-            <Categories title={"Populares"}>
-                <Carroussel>
-                    {originals.map(item =>
-                        <Item key={item.id} {...item} />
-                    )}
-                </Carroussel>
-            </Categories>
+            {
+                (originals) &&
+                <Categories title={"Populares"}>
+                    <Carroussel>
+                        {originals.map(item =>
+                            <Item key={item.id} {...item} />
+                        )}
+                    </Carroussel>
+                </Categories>
             }
         </>
     )
